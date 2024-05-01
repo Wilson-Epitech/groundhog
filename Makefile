@@ -1,0 +1,59 @@
+##
+## GROUNDHOG PROJECT, 2024
+## groundhog
+## File description:
+## Makefile
+##
+
+# -------------------------------------------------------------------------- #
+
+CC ?= gcc
+CPPFLAGS += -iquote./include
+CFLAGS += -Wall -Wextra -Werror -g3 -lm
+
+# -------------------------------------------------------------------------- #
+
+SRC_DIR	 =	./src/
+NAME =	groundhog
+OBJ =				$(SRC:.c=.o)
+SRC	=				$(SRC_DIR)main.c				\
+					$(SRC_DIR)error_handling.c		\
+					$(SRC_DIR)calculations.c		\
+					$(SRC_DIR)utils.c				\
+					$(LIB)							\
+
+# -------------------------------------------------------------------------- #
+
+LIB_DIR = ./src/lib/
+LIB =				$(LIB_DIR)word_array_delim.c	\
+
+# -------------------------------------------------------------------------- #
+
+UTFILE = src/test/unit_test.c
+UTSRC = 			$(SRC_DIR)error_handling.c	\
+
+# -------------------------------------------------------------------------- #
+
+RM = rm -f
+
+all:	$(NAME)
+
+$(NAME):	$(OBJ)
+	$(CC) -o $(NAME) $(OBJ) $(CPPLAGS) $(CFLAGS)
+
+tests_run:
+	$(CC) $(UTSRC) $(UTFILE) $(CPPFLAGS) --coverage -lcriterion -o unit_tests
+	./unit_tests
+
+tests_clean:
+		$(RM) unit_tests*
+
+clean:
+	$(RM) $(OBJ)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re:	 fclean all
+
+.PHONY = all clean fclean re
