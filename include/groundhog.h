@@ -10,6 +10,7 @@
 #include <stdlib.h>
 
 static const int SUCCESS = 0;
+static const int STOP = 1;
 static const int FAILURE = 84;
 
 #pragma once
@@ -17,6 +18,8 @@ static const int FAILURE = 84;
 typedef struct groundhog_s {
     int period;
     int nb;
+    int switched;
+    int nb_weirdest;
     double *list;
     double g;
     double r;
