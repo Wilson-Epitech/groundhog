@@ -29,6 +29,10 @@ void evolution(double *data, int period, groundhog_t *groundhog)
     result = ((data[period] - data[period - period])
         / data[period - period]) * 100;
     result = round(result * 100) / 100.0;
+    if (result < 0)
+        groundhog->switch_occurs = -1;
+        else
+        groundhog->switch_occurs = 1;
     groundhog->r = result;
 }
 

@@ -75,7 +75,8 @@ static int get_input(groundhog_t *st)
 int main(int argc, char *const *argv)
 {
     groundhog_t *groundhog = malloc(sizeof(groundhog_t));
-
+    groundhog->switch_occurs = 0;
+    groundhog->last_so = 0;
     memset(groundhog, 0, sizeof(groundhog_t));
     if (error_handling(argc, argv, groundhog) == FAILURE)
         return FAILURE;

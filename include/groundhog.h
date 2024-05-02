@@ -28,6 +28,8 @@ typedef struct groundhog_s {
     double g;
     double r;
     double s;
+    int switch_occurs;
+    int last_so;
 } groundhog_t;
 
 //--------error_handling.c -------------------------------------------//

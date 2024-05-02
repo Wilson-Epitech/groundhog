@@ -26,8 +26,14 @@ void display_line(groundhog_t *groundhog, size_t count)
     if ((int)count == groundhog->period - 1) {
         printf("g=nan\t\tr=nan%%\t\ts=%.2lf\n", groundhog->s);
     } else  {
-        printf("g=%.2lf\t\tr=%.0lf%%\t\ts=%.2lf\n",
+        if (groundhog->last_so != 0 && groundhog->last_so != groundhog->switch_occurs) {
+            printf("g=%.2lf\t\tr=%.0lf%%\t\ts=%.2lf\t\ta switch occurs\n",
             groundhog->g, groundhog->r, groundhog->s);
+        } else {
+            printf("g=%.2lf\t\tr=%.0lf%%\t\ts=%.2lf\n",
+            groundhog->g, groundhog->r, groundhog->s);
+                }
+            }
     }
-    }
+    groundhog->last_so = groundhog->switch_occurs;
 }
