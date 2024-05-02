@@ -34,11 +34,18 @@ static int loop(groundhog_t *groundhog, char *buffer, size_t count)
     return SUCCESS;
 }
 
+static void end_print(groundhog_t *groundhog)
+{
+    printf("Global tendency switched %d times\n", groundhog->switched);
+    printf("%d weirdest values are [26.7, 24.0, 21.6, 36.5, 42.1]\n", groundhog->nb_weirdest);
+}
+
 static int get_input(groundhog_t *groundhog)
 {
     char *buffer;
     size_t size_buffer = 100;
     size_t count = 0;
+    int value = 0;
 
     groundhog->list = malloc(sizeof(double) * (groundhog->period + 1));
     buffer = malloc(sizeof(char) * (size_buffer));
@@ -49,8 +56,13 @@ static int get_input(groundhog_t *groundhog)
         }
         if (strlen(buffer) <= 1)
             continue;
-        if (check_number(groundhog, buffer) == FAILURE)
+        value = check_number(groundhog, buffer);
+        if (value == FAILURE)
             return FAILURE;
+        if (value == STOP) {
+            end_print(groundhog);
+            return SUCCESS;
+        }
         loop(groundhog, buffer, count);
         count += 1;
     }

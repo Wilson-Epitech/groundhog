@@ -26,7 +26,7 @@ void evolution(double *data, int period, groundhog_t *groundhog)
 {
     double result = 0.0;
 
-    result = ((data[7] - data[7 - period]) / data[7 - period]) * 100;
+    result = ((data[period] - data[period - period]) / data[period - period]) * 100;
     result = round(result * 100) / 100.0;
     groundhog->r = result;
 }

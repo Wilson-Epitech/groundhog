@@ -40,7 +40,7 @@ int check_number(groundhog_t *groundhog, const char *str)
 
     for (size_t i = 0; array[i] != NULL; i += 1) {
         if (strcmp(array[0], "STOP") == 0) {
-            return SUCCESS;
+            return STOP;
         }
         if (!is_number(array[i]))
             return FAILURE;
