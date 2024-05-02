@@ -23,7 +23,11 @@ void display_line(groundhog_t *groundhog, size_t count)
     if ((int)count < groundhog->period - 1) {
         printf("g=nan\t\tr=nan%%\t\ts=nan\n");
     } else {
+    if ((int)count == groundhog->period - 1) {
+        printf("g=nan\t\tr=nan%%\t\ts=%.2lf\n", groundhog->s);
+    } else  {
         printf("g=%.2lf\t\tr=%.0lf%%\t\ts=%.2lf\n",
             groundhog->g, groundhog->r, groundhog->s);
+    }
     }
 }
