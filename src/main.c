@@ -12,6 +12,13 @@
 
 #include "groundhog.h"
 
+static void compute_loop(groundhog_t *groundhog)
+{
+    mean(groundhog, groundhog->list, groundhog->period);
+    evolution(groundhog->list, groundhog->period, groundhog);
+    deviations8(groundhog, groundhog->list, groundhog->period);
+}
+
 static int loop(groundhog_t *groundhog, char *buffer, size_t count)
 {
     double current_value = 0;
@@ -19,16 +26,17 @@ static int loop(groundhog_t *groundhog, char *buffer, size_t count)
     if ((int)count < groundhog->period) {
         groundhog->list[count] = atof(buffer);
     }
+    if ((int)count == groundhog->period - 1) {
+        deviations7(groundhog, groundhog->list, groundhog->period);
+    }
     if ((int)count == groundhog->period) {
         groundhog->list[count] = atof(buffer);
-        mean(groundhog, groundhog->list, groundhog->period);
-        evolution(groundhog->list, groundhog->period, groundhog);
+        compute_loop(groundhog);
     }
     if ((int)count > groundhog->period) {
         current_value = atof(buffer);
         groundhog->list = push_back(groundhog, groundhog->list, current_value);
-        mean(groundhog, groundhog->list, groundhog->period);
-        evolution(groundhog->list, groundhog->period, groundhog);
+        compute_loop(groundhog);
     }
     display_line(groundhog, count);
     return SUCCESS;
@@ -37,34 +45,29 @@ static int loop(groundhog_t *groundhog, char *buffer, size_t count)
 static void end_print(groundhog_t *groundhog)
 {
     printf("Global tendency switched %d times\n", groundhog->switched);
-    printf("%d weirdest values are [26.7, 24.0, 21.6, 36.5, 42.1]\n", groundhog->nb_weirdest);
+    printf("%d weirdest values are []\n", groundhog->nb_weirdest);
 }
 
-static int get_input(groundhog_t *groundhog)
+static int get_input(groundhog_t *st)
 {
-    char *buffer;
-    size_t size_buffer = 100;
-    size_t count = 0;
-    int value = 0;
-
-    groundhog->list = malloc(sizeof(double) * (groundhog->period + 1));
-    buffer = malloc(sizeof(char) * (size_buffer));
+    st->list = malloc(sizeof(double) * (st->period + 1));
+    st->buffer = malloc(sizeof(char) * (st->size_buffer));
     while (1) {
-        if (getline(&buffer, &size_buffer, stdin) == -1) {
-            free(buffer);
+        if (getline(&st->buffer, &st->size_buffer, stdin) == -1) {
+            free(st->buffer);
             return FAILURE;
         }
-        if (strlen(buffer) <= 1)
+        if (strlen(st->buffer) <= 1)
             continue;
-        value = check_number(groundhog, buffer);
-        if (value == FAILURE)
+        st->value = check_number(st, st->buffer);
+        if (st->value == FAILURE)
             return FAILURE;
-        if (value == STOP) {
-            end_print(groundhog);
+        if (st->value == STOP) {
+            end_print(st);
             return SUCCESS;
         }
-        loop(groundhog, buffer, count);
-        count += 1;
+        loop(st, st->buffer, st->count);
+        st->count += 1;
     }
     return SUCCESS;
 }
@@ -76,6 +79,7 @@ int main(int argc, char *const *argv)
     memset(groundhog, 0, sizeof(groundhog_t));
     if (error_handling(argc, argv, groundhog) == FAILURE)
         return FAILURE;
+    groundhog->size_buffer = 100;
     if (get_input(groundhog) == FAILURE)
         return FAILURE;
     free(groundhog);

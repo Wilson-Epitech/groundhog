@@ -16,6 +16,10 @@ static const int FAILURE = 84;
 #pragma once
 
 typedef struct groundhog_s {
+    char *buffer;
+    size_t size_buffer;
+    size_t count;
+    int value;
     int period;
     int nb;
     int switched;
@@ -33,7 +37,9 @@ int check_number(groundhog_t *groundhog, const char *str);
 //--------calculations.c -------------------------------------//
 void mean(groundhog_t *groundhog, double *data, int period);
 void evolution(double *data, int period, groundhog_t *groundhog);
-void deviations(groundhog_t *groundhog, double *data, int period);
+void deviations7(groundhog_t *groundhog, double *data, int period);
+void deviations8(groundhog_t *groundhog, double *data, int period);
+
 
 //--------utils.c ----------------------------------------------------------//
 double *push_back(groundhog_t *groundhog, double *list, double current_value);
