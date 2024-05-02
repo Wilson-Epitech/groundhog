@@ -18,6 +18,19 @@ double *push_back(groundhog_t *groundhog, double *list, double current_value)
     return new_list;
 }
 
+void display_line2(groundhog_t *groundhog)
+{
+    if (groundhog->last_so != 0 &&
+    groundhog->last_so !=
+    groundhog->switch_occurs) {
+        printf("g=%.2lf\t\tr=%.0lf%%\t\ts=%.2lf\t\ta switch occurs\n",
+        groundhog->g, groundhog->r, groundhog->s);
+    } else {
+        printf("g=%.2lf\t\tr=%.0lf%%\t\ts=%.2lf\n",
+        groundhog->g, groundhog->r, groundhog->s);
+        }
+}
+
 void display_line(groundhog_t *groundhog, size_t count)
 {
     if ((int)count < groundhog->period - 1) {
@@ -25,14 +38,8 @@ void display_line(groundhog_t *groundhog, size_t count)
     } else {
     if ((int)count == groundhog->period - 1) {
         printf("g=nan\t\tr=nan%%\t\ts=%.2lf\n", groundhog->s);
-    } else  {
-        if (groundhog->last_so != 0 && groundhog->last_so != groundhog->switch_occurs) {
-            printf("g=%.2lf\t\tr=%.0lf%%\t\ts=%.2lf\t\ta switch occurs\n",
-            groundhog->g, groundhog->r, groundhog->s);
-        } else {
-            printf("g=%.2lf\t\tr=%.0lf%%\t\ts=%.2lf\n",
-            groundhog->g, groundhog->r, groundhog->s);
-                }
+    } else {
+        display_line2(groundhog);
             }
     }
     groundhog->last_so = groundhog->switch_occurs;
