@@ -66,7 +66,7 @@ static int get_input(groundhog_t *st)
         }
         if (strlen(st->buffer) <= 1)
             continue;
-        st->value = check_number(st, st->buffer);
+        st->value = check_number(st->buffer);
         if (st->value == FAILURE)
             return FAILURE;
         if (st->value == STOP) {

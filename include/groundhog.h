@@ -36,7 +36,7 @@ typedef struct groundhog_s {
 
 //--------error_handling.c -------------------------------------------//
 int error_handling(int argc, char *const *argv, groundhog_t *groundhog);
-int check_number(groundhog_t *groundhog, const char *str);
+int check_number(const char *str);
 
 //--------calculations.c -------------------------------------//
 void mean(groundhog_t *groundhog, double *data, int period);

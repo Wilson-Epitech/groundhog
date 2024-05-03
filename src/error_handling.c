@@ -34,7 +34,7 @@ static void display_usage(void)
     fprintf(stderr, usage, strlen(usage));
 }
 
-int check_number(groundhog_t *groundhog, const char *str)
+int check_number(const char *str)
 {
     char **array = word_array_delim(str, " \n\0");
 
@@ -47,9 +47,6 @@ int check_number(groundhog_t *groundhog, const char *str)
         if (i > 0)
             return FAILURE;
     }
-    groundhog->nb = atof(array[0]);
-    if (groundhog->nb <= 0)
-        return FAILURE;
     return SUCCESS;
 }
 
