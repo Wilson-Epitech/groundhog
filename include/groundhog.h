@@ -17,12 +17,13 @@ static const int FAILURE = 84;
 
 typedef struct groundhog_s {
     char *buffer;
+    char **switched;
     size_t size_buffer;
     size_t count;
     int value;
     int period;
     int nb;
-    int switched;
+    // int switched;
     int nb_weirdest;
     double *list;
     double g;
@@ -30,6 +31,7 @@ typedef struct groundhog_s {
     double s;
     int switch_occurs;
     int last_so;
+    int nb_so;
 } groundhog_t;
 
 //--------error_handling.c -------------------------------------------//

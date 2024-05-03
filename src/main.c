@@ -44,8 +44,15 @@ static int loop(groundhog_t *groundhog, char *buffer, size_t count)
 
 static void end_print(groundhog_t *groundhog)
 {
-    printf("Global tendency switched %d times\n", groundhog->switched);
-    printf("%d weirdest values are []\n", groundhog->nb_weirdest);
+    printf("Global tendency switched %d times\n", groundhog->nb_so);
+    printf("%d weirdest values are [", groundhog->nb_so);
+    for (int i = 0; groundhog->switched[i] != NULL; i++) {
+        if (groundhog->switched[i + 1] != NULL)
+            printf("%s, ", groundhog->switched[i]);
+        else
+            printf("%s", groundhog->switched[i]);
+    }
+    printf("]\n");
 }
 
 static int get_input(groundhog_t *st)
@@ -82,6 +89,8 @@ int main(int argc, char *const *argv)
     if (error_handling(argc, argv, groundhog) == FAILURE)
         return FAILURE;
     groundhog->size_buffer = 100;
+    groundhog->switched = malloc(sizeof(char *) * (1));
+    groundhog->switched[0] = NULL;
     if (get_input(groundhog) == FAILURE)
         return FAILURE;
     free(groundhog);
