@@ -57,8 +57,6 @@ static void end_print(groundhog_t *groundhog)
 
 static int get_input(groundhog_t *st)
 {
-    st->list = malloc(sizeof(double) * (st->period + 1));
-    st->buffer = malloc(sizeof(char) * (st->size_buffer));
     while (1) {
         if (getline(&st->buffer, &st->size_buffer, stdin) == -1) {
             free(st->buffer);
@@ -71,6 +69,7 @@ static int get_input(groundhog_t *st)
             return FAILURE;
         if (st->value == STOP) {
             end_print(st);
+            check_input(st, st->count);
             return SUCCESS;
         }
         loop(st, st->buffer, st->count);
@@ -79,18 +78,25 @@ static int get_input(groundhog_t *st)
     return SUCCESS;
 }
 
+static void init_struct(groundhog_t *groundhog)
+{
+    groundhog->switch_occurs = 0;
+    groundhog->last_so = 0;
+    groundhog->size_buffer = 100;
+    groundhog->switched = malloc(sizeof(char *) * (1));
+    groundhog->switched[0] = NULL;
+    groundhog->list = malloc(sizeof(double) * (groundhog->period + 1));
+    groundhog->buffer = malloc(sizeof(char) * (groundhog->size_buffer));
+}
+
 int main(int argc, char *const *argv)
 {
     groundhog_t *groundhog = malloc(sizeof(groundhog_t));
 
-    groundhog->switch_occurs = 0;
-    groundhog->last_so = 0;
     memset(groundhog, 0, sizeof(groundhog_t));
     if (error_handling(argc, argv, groundhog) == FAILURE)
         return FAILURE;
-    groundhog->size_buffer = 100;
-    groundhog->switched = malloc(sizeof(char *) * (1));
-    groundhog->switched[0] = NULL;
+    init_struct(groundhog);
     if (get_input(groundhog) == FAILURE)
         return FAILURE;
     free(groundhog);

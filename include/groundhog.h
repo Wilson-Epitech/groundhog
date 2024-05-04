@@ -23,7 +23,6 @@ typedef struct groundhog_s {
     int value;
     int period;
     int nb;
-    // int switched;
     int nb_weirdest;
     double *list;
     double g;
@@ -36,6 +35,7 @@ typedef struct groundhog_s {
 
 //--------error_handling.c -------------------------------------------//
 int error_handling(int argc, char *const *argv, groundhog_t *groundhog);
+int check_input(groundhog_t *groundhog, size_t value);
 int check_number(const char *str);
 
 //--------calculations.c -------------------------------------//

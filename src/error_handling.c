@@ -50,6 +50,13 @@ int check_number(const char *str)
     return SUCCESS;
 }
 
+int check_input(groundhog_t *groundhog, size_t value)
+{
+    if ((int)value < groundhog->period)
+        exit(FAILURE);
+    return 0;
+}
+
 int error_handling(int argc, char *const *argv, groundhog_t *groundhog)
 {
     if (argc != 2) {
