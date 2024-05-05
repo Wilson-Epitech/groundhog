@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 static const int SUCCESS = 0;
 static const int STOP = 1;
