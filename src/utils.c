@@ -51,7 +51,7 @@ static void stock_index(groundhog_t *groundhog)
     groundhog->switched[size - 1] = strdup(groundhog->buffer);
 }
 
-void display_line2(groundhog_t *groundhog)
+static void display_line2(groundhog_t *groundhog)
 {
     if (groundhog->last_so != 0 &&
     groundhog->last_so !=

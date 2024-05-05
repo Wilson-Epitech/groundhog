@@ -30,8 +30,10 @@ LIB =				$(LIB_DIR)word_array_delim.c	\
 # -------------------------------------------------------------------------- #
 
 UTFILE = ./tests/unit_test.c
+UTFLAGS = --coverage -lcriterion -lm -o
 UTSRC = 			$(SRC_DIR)error_handling.c		\
 					$(SRC_DIR)calculations.c		\
+					$(SRC_DIR)utils.c				\
 					$(LIB_DIR)word_array_delim.c	\
 
 # -------------------------------------------------------------------------- #
@@ -44,7 +46,7 @@ $(NAME):	$(OBJ)
 	$(CC) -o $(NAME) $(OBJ) $(CPPLAGS) $(CFLAGS)
 
 tests_run:
-	$(CC) $(UTSRC) $(UTFILE) $(CPPFLAGS) --coverage -lcriterion -lm -o unit_tests
+	$(CC) $(UTSRC) $(UTFILE) $(CPPFLAGS) $(UTFLAGS) unit_tests
 	./unit_tests
 
 tests_clean:
