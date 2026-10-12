@@ -9,7 +9,7 @@
 
 CC ?= gcc
 CPPFLAGS += -iquote./include
-CFLAGS += -Wall -Wextra -Werror -g3 -lm
+CFLAGS += -Wall -Wextra -Werror -g3
 
 # -------------------------------------------------------------------------- #
 
@@ -43,7 +43,7 @@ RM = rm -f
 all:	$(NAME)
 
 $(NAME):	$(OBJ)
-	$(CC) -o $(NAME) $(OBJ) $(CPPLAGS) $(CFLAGS)
+	$(CC) -o $(NAME) $(OBJ) $(CPPFLAGS) $(CFLAGS) -lm
 
 tests_run:
 	$(CC) $(UTSRC) $(UTFILE) $(CPPFLAGS) $(UTFLAGS) unit_tests
