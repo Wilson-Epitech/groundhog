@@ -14,7 +14,7 @@
 
 <p align="center"><img src=".github/assets/term-groundhog.png" alt="Groundhog" width="820"/></p>
 
-## En deux mots
+## Le projet en quelques mots
 
 On saisit des températures une par une, et le programme calcule au fur et à mesure la tendance, l'évolution et l'écart-type sur une période glissante. À la fin, il dit combien de fois la tendance s'est inversée et quelles valeurs étaient les plus étranges.
 
@@ -25,10 +25,6 @@ On saisit des températures une par une, et le programme calcule au fur et à me
 - Détection des changements de tendance (*a switch occurs*)
 - Les valeurs les plus aberrantes de la série (*weirdest values*)
 - Tests unitaires Criterion
-
-## Sous le capot
-
-On garde un historique des valeurs et on recalcule à chaque saisie les indicateurs sur les *n* dernières valeurs. Un changement de signe de `r` entre deux tours signale un retournement de tendance.
 
 ## Lancer le projet
 
@@ -44,4 +40,4 @@ make
 
 Bradley Malbrouck, Wilson Bordichon
 
-**Ma part :** J'ai fait la lecture des entrées, la gestion d'erreurs, le calcul de l'évolution et les tests unitaires.
+**Ma partition :** J'ai fait la lecture des entrées, la gestion d'erreurs, le calcul de l'évolution et les tests unitaires.
