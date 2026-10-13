@@ -39,4 +39,4 @@ make
 
 Bradley Malbrouck, Wilson Bordichon
 
-**Ma partition :** J'ai écrit la majeure partie du programme : lecture des entrées, gestion d'erreurs, **calculs statistiques**, le Makefile et une partie des tests unitaires.
+**Ma partition :** J'ai écrit la lecture des entrées, la **gestion d'erreurs**, la structure du programme et le Makefile, une partie des calculs (évolution sur la période) et des tests unitaires.
