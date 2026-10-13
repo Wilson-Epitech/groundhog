@@ -31,7 +31,6 @@ On saisit des températures une par une, et le programme calcule au fur et à me
 ```bash
 make
 ./groundhog 7
-# puis une température par ligne, et STOP pour finir
 ```
 
 ## L'équipe
